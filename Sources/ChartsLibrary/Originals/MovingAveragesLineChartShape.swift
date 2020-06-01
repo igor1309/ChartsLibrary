@@ -1,18 +1,19 @@
 //
-//  Chart Shapes.swift
-//  ChartsLibrary
+//  MovingAveragesLineChartShape.swift
+//  ChartsAndCollectionLibrariesDevelopment
 //
-//  Created by Igor Malyarov on 24.05.2020.
+//  Created by Igor Malyarov on 01.06.2020.
 //  Copyright © 2020 Igor Malyarov. All rights reserved.
 //
 
 import SwiftUI
 
 @available(iOS 13.0, *)
-public struct LineChartShape: Shape {
+public struct MovingAveragesLineChartShape: Shape {
     public let series: [CGFloat]
     public var min: CGFloat
     public var max: CGFloat
+    public var averagingPeriod: Int
     public var isZeroBased: Bool
     public var hasArea: Bool
     
@@ -20,12 +21,14 @@ public struct LineChartShape: Shape {
         series: [CGFloat],
         min: CGFloat? = nil,
         max: CGFloat? = nil,
+        averagingPeriod: Int = 7,
         isZeroBased: Bool = true,
         hasArea: Bool = false
     ) {
         self.series = series
         self.min = min ?? series.min()!
         self.max = max ?? series.max()!
+        self.averagingPeriod = averagingPeriod
         self.isZeroBased = isZeroBased
         self.hasArea = hasArea
     }
@@ -38,7 +41,7 @@ public struct LineChartShape: Shape {
         func point(index: Int) -> CGPoint {
             CGPoint(
                 x: xStep * CGFloat(index),
-                y: rect.height * (1 - (series[index] - (isZeroBased ? 0 : min)) / (isZeroBased ? max : (max - min)))
+                y: rect.height * (1 - (CGFloat(series.movingAverages(period: averagingPeriod)[index]) - (isZeroBased ? 0 : min)) / (isZeroBased ? max : (max - min)))
             )
         }
         

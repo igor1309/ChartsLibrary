@@ -1,6 +1,6 @@
 //
 //  LineWithAreaChartView.swift
-//  TestingAreaCharts
+//  ChartsLibrary
 //
 //  Created by Igor Malyarov on 27.05.2020.
 //  Copyright © 2020 Igor Malyarov. All rights reserved.
@@ -65,62 +65,5 @@ public struct LineWithAreaChartView<S1: ShapeStyle, S2: ShapeStyle>: View {
                     )
             )
         }
-    }
-}
-
-//  MARK: -
-@available(iOS 13.0, *)
-struct LineWithAreaChartView_Previews: PreviewProvider {
-    
-    static let gradient = LinearGradient(
-        gradient: Gradient(colors: [
-            Color.secondary.opacity(0.3),
-            Color.secondary.opacity(0.1)]),
-        startPoint: .top,
-        endPoint: .bottom)
-    
-    static var lineWithAreaChartView: some View {
-        VStack {
-            Text("LineWithAreaChartView")
-                .font(.subheadline)
-            
-            HStack {
-                LineWithAreaChartView(
-                    series: series,
-                    isZeroBased: true,
-                    areaStyle: Color.secondary,
-                    strokeContent: Color.secondary
-                )
-                    .border(Color.pink.opacity(0.3))
-                
-                LineWithAreaChartView(
-                    series: series,
-                    isZeroBased: true,
-                    areaStyle: gradient,
-                    strokeContent: Color.secondary.opacity(0.75),
-                    lineWidth: 4
-                )
-                    .border(Color.pink.opacity(0.3))
-                
-                LineWithAreaChartView(
-                    series: series,
-                    isZeroBased: false,
-                    areaStyle: gradient,
-                    strokeContent: Color.secondary,
-                    lineWidth: 2
-                )
-                    .border(Color.pink.opacity(0.3))
-            }
-        }
-        .frame(height: 160)
-    }
-    
-    static var previews: some View {
-        lineWithAreaChartView
-            .padding()
-//            .previewColorSchemes()
-        //        .background(Color(UIColor.systemBackground).edgesIgnoringSafeArea(.all))
-        //        .environment(\.colorScheme, .dark)
-        //        .previewLayout(.sizeThatFits)
     }
 }
