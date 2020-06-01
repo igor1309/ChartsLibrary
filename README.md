@@ -1,3 +1,3 @@
 # ChartsLibrary
 
-A description of this package.
+Line and Area Charts components.
