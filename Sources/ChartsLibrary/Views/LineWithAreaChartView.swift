@@ -47,14 +47,14 @@ public struct LineWithAreaChartView<S1: ShapeStyle, S2: ShapeStyle>: View {
     
     public var body: some View {
         ZStack {
-            LineChartInsettableShape(series: series,
-                                     isZeroBased: isZeroBased,
-                                     hasArea: true)
+            LineChart(series: series,
+                      isZeroBased: isZeroBased,
+                      hasArea: true)
                 .fill(fillStyle)
             
-            LineChartInsettableShape(series: series,
-                                     isZeroBased: isZeroBased,
-                                     hasArea: false)
+            LineChart(series: series,
+                      isZeroBased: isZeroBased,
+                      hasArea: false)
                 .strokeBorder(strokeContent,
                               style: StrokeStyle(lineWidth: lineWidth,
                                                  lineCap: lineCap,

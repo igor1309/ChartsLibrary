@@ -21,9 +21,9 @@ public struct AreaChartView<S: ShapeStyle>: View {
     }
     
     public var body: some View {
-        LineChartInsettableShape(series: series,
-                                 isZeroBased: isZeroBased,
-                                 hasArea: true)
+        LineChart(series: series,
+                  isZeroBased: isZeroBased,
+                  hasArea: true)
             .fill(fillStyle)
     }
 }

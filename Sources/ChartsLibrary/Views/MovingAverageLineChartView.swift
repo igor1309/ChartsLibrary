@@ -46,9 +46,9 @@ public struct MovingAverageLineChartView<S: ShapeStyle>: View {
     }
     
     public var body: some View {
-        LineChartInsettableShape(series: series,
-                                 averagingPeriod: averagingPeriod,
-                                 isZeroBased: isZeroBased)
+        LineChart(series: series,
+                  averagingPeriod: averagingPeriod,
+                  isZeroBased: isZeroBased)
             .strokeBorder(strokeContent,
                           style: StrokeStyle(lineWidth: lineWidth,
                                              lineCap: lineCap,

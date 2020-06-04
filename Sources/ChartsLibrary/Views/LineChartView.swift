@@ -43,8 +43,8 @@ public struct LineChartView<S: ShapeStyle>: View {
     }
     
     public var body: some View {
-        LineChartInsettableShape(series: series,
-                                 isZeroBased: isZeroBased)
+        LineChart(series: series,
+                  isZeroBased: isZeroBased)
             .strokeBorder(strokeContent,
                           style: StrokeStyle(lineWidth: lineWidth,
                                              lineCap: lineCap,
