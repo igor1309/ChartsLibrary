@@ -19,10 +19,11 @@ public struct LineChartInsettableShape: InsettableShape {
     public var hasArea: Bool
     
     /// Insettable shape for line (default) or area chart (hasArea = true).
-    /// Plot original series (period = 0 or 1) or moving average (if period > 1).
-    /// Provide min and/or max to set Y Axis, otherwise use series min and max.
-    /// Use zero (default) or min to set Y Axis (isZeroBased).
-    /// For line chart use with strokeBorder() to inset, for area use fill().
+    /// Plot `original` series (period = 0 or 1) or `moving average` (if period > 1).
+    /// Provide `min` and/or `max` to set Y Axis, otherwise use series min and max.
+    /// Use `zero` (default) or `min` to set Y Axis (isZeroBased).
+    /// For `line` chart use with strokeBorder() to inset, for `area` use fill().
+    /// Use `count` to animate chart drawing - ex: from 0 to count.
     /// - Parameters:
     ///   - series: original series used to plot it or moving average
     ///   - minY: min value of Y Axix, if not provided derived from series
@@ -58,11 +59,12 @@ public struct LineChartInsettableShape: InsettableShape {
         guard !series.isEmpty else { return Path() }
         
         let xStep = (rect.width - insetAmount * 2) / CGFloat(series.count - 1)
+      
+        let yZero: CGFloat = isZeroBased ? 0 : minY
+        let yHeight: CGFloat = (isZeroBased ? maxY : (maxY - minY))
         
         func point(index: Int) -> CGPoint {
             let yValue: CGFloat = CGFloat(series.movingAverages(period: averagingPeriod)[index])
-            let yZero: CGFloat = isZeroBased ? 0 : minY
-            let yHeight: CGFloat = (isZeroBased ? maxY : (maxY - minY))
             
             return CGPoint(
                 x: xStep * CGFloat(index) + insetAmount,
