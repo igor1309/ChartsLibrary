@@ -10,19 +10,29 @@ import SwiftUI
 
 @available(iOS 13.0, *)
 public struct LineChartView<S: ShapeStyle>: View {
-    public let series: [CGFloat]
-    public let isZeroBased: Bool
-    public let strokeContent: S
-    public var lineWidth: CGFloat
-    public let lineCap: CGLineCap
-    public let lineJoin: CGLineJoin
-    public let miterLimit: CGFloat
-    public let dash: [CGFloat]
-    public let dashPhase: CGFloat
+    let series: [CGFloat]
+    let minY: CGFloat?
+    let maxY: CGFloat?
+    let averagingPeriod: Int
+    let isZeroBased: Bool
+    let animation: Animation
+    let strokeContent: S
+    var lineWidth: CGFloat
+    let lineCap: CGLineCap
+    let lineJoin: CGLineJoin
+    let miterLimit: CGFloat
+    let dash: [CGFloat]
+    let dashPhase: CGFloat
+    
+    @State private var show = false
     
     public init(
         series: [CGFloat],
         isZeroBased: Bool,
+        minY: CGFloat? = nil,
+        maxY: CGFloat? = nil,
+        averagingPeriod: Int = 0,
+        animation: Animation? = Animation.easeInOut(duration: 1),
         strokeContent: S,
         lineWidth: CGFloat = 1,
         lineCap: CGLineCap = .round,
@@ -32,7 +42,11 @@ public struct LineChartView<S: ShapeStyle>: View {
         dashPhase: CGFloat = 0
     ) {
         self.series = series
+        self.minY = minY
+        self.maxY = maxY
+        self.averagingPeriod = averagingPeriod
         self.isZeroBased = isZeroBased
+        self.animation = animation ?? .default
         self.strokeContent = strokeContent
         self.lineWidth = lineWidth
         self.lineCap = lineCap
@@ -44,9 +58,14 @@ public struct LineChartView<S: ShapeStyle>: View {
     
     public var body: some View {
         LineChart(series: series,
-                  isZeroBased: isZeroBased)
+                  count: show ? series.count : 0,
+                  minY: minY,
+                  maxY: maxY,
+                  averagingPeriod: averagingPeriod,
+                  isZeroBased: isZeroBased,
+                  hasArea: false)
             .strokeBorder(strokeContent,
-                          style: StrokeStyle(lineWidth: lineWidth,
+                          style: StrokeStyle(lineWidth: show ? lineWidth : 0,
                                              lineCap: lineCap,
                                              lineJoin: lineJoin,
                                              miterLimit: miterLimit,
@@ -54,5 +73,10 @@ public struct LineChartView<S: ShapeStyle>: View {
                                              dashPhase: dashPhase
                 )
         )
+            .onAppear {
+                withAnimation(self.animation) {
+                    self.show = true
+                }
+        }
     }
 }

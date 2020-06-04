@@ -11,13 +11,13 @@ import SwiftUI
 /// Insettable shape for line or area chart. See init documentation for details.
 @available(iOS 13.0, *)
 public struct LineChart: InsettableShape {
-    public let series: [CGFloat]
-    public var count: Int
-    public let minY: CGFloat
-    public let maxY: CGFloat
-    public var averagingPeriod: Int
-    public var isZeroBased: Bool
-    public var hasArea: Bool
+    let series: [CGFloat]
+    var count: Int
+    let minY: CGFloat
+    let maxY: CGFloat
+    let averagingPeriod: Int
+    let isZeroBased: Bool
+    let hasArea: Bool
     
     /// Insettable shape for line (default) or area chart (hasArea = true).
     /// Plot `original` series (period = 0 or 1) or `moving average` (if period > 1).

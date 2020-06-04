@@ -14,7 +14,10 @@ public struct AreaChartView<S: ShapeStyle>: View {
     public let isZeroBased: Bool
     public let fillStyle: S
     
-    public init(series: [CGFloat], isZeroBased: Bool, fillStyle: S) {
+    public init(series: [CGFloat],
+                isZeroBased: Bool,
+                fillStyle: S
+    ) {
         self.series = series
         self.isZeroBased = isZeroBased
         self.fillStyle = fillStyle
